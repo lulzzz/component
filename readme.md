@@ -1,15 +1,15 @@
 # Frame Component
 
-A ultra light typescript library for writing custom elements.
+An ultra light typescript library for writing custom elements.
 
 ### Ultra light
-Less than 1.5kb (gzipped) if using all decorators in a custom element.
+Less than 1.5kb (gzipped) when using all decorators in a custom element.
 
 ### No dependencies
-This framework utilises only typescript, and have no tight intergration with any CLI or specific build tooling.
+This framework utilizes only typescript, and has no dependency on any CLI or specific build tooling.
 
 ### A library, not a framework
-This library aims to suger the dev experience when writing custom elements, and to fit in to any build system.
+This library aims to ease the developer experience when writing custom elements, and to fit in to any build system.
 
 ## Installing
 Install from NPM:
@@ -20,7 +20,7 @@ npm install @framejs/component
 ## Decorators
 
 ### @Component({tag: string})
-The main decorator that holds state provides a renderer (This is needed in order to use the rest of the decorators).
+The main decorator that holds state provides a renderer (this is needed in order to use the rest of the decorators).
 
 ```ts
 import { Component } from '@framejs/component';
@@ -36,9 +36,9 @@ class MyElement extends HTMLElement {
 ```
 
 ### @Attr() [property]: string | boolean | number
-Decorates the element with an attribute setter and getter and updates state/render on changes. Updating the property from withing the element or externally will update the attribute in the HTML and the other way around.
+Decorates the element with an attribute setter and getter and updates state/render on change. Updating the property from within the element or externally will update the attribute in the rendered HTML and the other way around.
 
-Providing a default value will set the attribute when the element is ready, if the attribute is already set by the user, the default will be overwritten.
+Providing a default value will set the attribute when the element is ready. If the attribute is already set by the user, the default will be overwritten.
 
 ```ts
 import { Component, Attr } from '@framejs/component';
@@ -56,8 +56,8 @@ class MyElement extends HTMLElement {
 ```
 
 ### @Prop() [property]: any
-Decorates the element with a property setter and getter and updates state/render on changes.
-This value will not be reflected in the HTML as an attribute.
+Decorates the element with a property setter and getter and updates state/render on change.
+This value will not be reflected in the rendered HTML as an attribute.
 
 ```ts
 import { Component, Prop } from '@framejs/component';
@@ -89,7 +89,7 @@ import { Component, Prop } from '@framejs/component';
 })
 class MyElement extends HTMLElement {
     @Prop() data: string[] = ['Hello', 'world!'];
-    
+
     @Watch('data')
     dataChangedHandler(oldValue, newValue) {
         // Do something with the new data entry
@@ -124,7 +124,7 @@ class MyElement extends HTMLElement {
 ```
 
 ### @Listen(event: string) Function
-Listen for events.
+Listens for events and executes the nested logic.
 
 ```ts
 import { Component, Listen } from '@framejs/component';
@@ -140,7 +140,7 @@ class MyElement extends HTMLElement {
 }
 ```
 
-It's also possible to listen for specific elements inside render template
+It's also possible to listen for events on specific elements inside render template
 
 ```ts
 import { Component, Listen } from '@framejs/component';
@@ -177,11 +177,11 @@ class MyElement extends HTMLElement {
 ```
 
 ## Extendable renderer
-The built in renderer is very simple, it just takes the returned value, and replaces innerHTML with the new template when updated.
+The built in renderer is very simple: it receives the returned value, and replaces innerHTML with the new template when updated.
 
-For complex components it can be a good idea to extend the renderer with something more complex like lit-html.
+For complex components it can be a good idea to extend the renderer with something more complex like `lit-html`.
 
-To enable your own renderer, you can make a mixin or class that has a renderer function. The renderer takes the template as an argument like this:
+To enable your own renderer, you can make a mixin or class that has a renderer function. The renderer receives the template as an argument like this:
 
 ```ts
 import { render } from 'lit-html/lib/lit-extended';
@@ -193,7 +193,7 @@ export class LitElement extends HTMLElement {
 }
 ```
 
-Inside your element you can use it like this: 
+Inside your element you can use it like this:
 
 ```ts
 import { Component, Prop } from '@framejs/component';
@@ -204,7 +204,7 @@ import { html } from 'lit-html/lib/lit-exteded';
 })
 class MyElement extends LitElement {
     @Prop() message: string = 'it\'s lit!';
-    
+
     render() {
         return html`${this.message}`;
     }
